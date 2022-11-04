@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 import tk.leooresende.redesocial.infra.advice.exception.GenericaException;
 import tk.leooresende.redesocial.infra.advice.exception.ImagemNaoEncontrada;
 import tk.leooresende.redesocial.infra.advice.exception.SemPermicaoParaManipular;
+import tk.leooresende.redesocial.infra.dto.v1.PaginacaoUsuarioDto;
 import tk.leooresende.redesocial.infra.dto.v1.UsuarioDto;
 import tk.leooresende.redesocial.infra.dto.v1.UsuarioForm;
 import tk.leooresende.redesocial.model.Usuario;
@@ -71,14 +72,21 @@ public class UsuarioUtil {
 
 	public static String criptografarInformacoesDoUsuario(UsuarioDto usuarioAtualizado) {
 		Gson gson = new Gson();
-		String comentarioDtoJson = gson.toJson(usuarioAtualizado);
-		return SecurityUtil.criptografar(comentarioDtoJson);
+		String usuarioDtoJson = gson.toJson(usuarioAtualizado);
+		return SecurityUtil.criptografar(usuarioDtoJson);
+	}
+	
+	public static String criptografarInformacoesDosUsuarios(PaginacaoUsuarioDto usuarioAtualizado) {
+		Gson gson = new Gson();
+		String usuariosDtoPaginadosEmJson = gson.toJson(usuarioAtualizado);
+		System.out.println(usuariosDtoPaginadosEmJson);
+		return SecurityUtil.criptografar(usuariosDtoPaginadosEmJson);
 	}
 	
 	public static String criptografarInformacoesDosUsuarios(List<UsuarioDto> usuarioAtualizado) {
 		Gson gson = new Gson();
-		String comentarioDtoJson = gson.toJson(usuarioAtualizado);
-		return SecurityUtil.criptografar(comentarioDtoJson);
+		String usuariosDtoJson = gson.toJson(usuarioAtualizado);
+		return SecurityUtil.criptografar(usuariosDtoJson);
 	}
 
 	public static List<UsuarioDto> pegarUsuariosComoDtoEEmbaralharLista(List<Usuario> usuarios) {

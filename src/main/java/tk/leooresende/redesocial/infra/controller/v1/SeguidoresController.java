@@ -1,8 +1,7 @@
 package tk.leooresende.redesocial.infra.controller.v1;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,9 +25,9 @@ public class SeguidoresController {
 	private UsuarioService userService;
 	
 	@GetMapping
-	public ResponseEntity<CryptoRequestForm> buscarSeguidoresDoUsuario(@PathVariable String username) {
-		List<UsuarioDto> seguidores = this.seguidoresService.buscarSeguidoresDoUsuario(username);
-		CryptoRequestForm informacoesSeguidoresCriptografada = this.userService.pegarInformacoesDosUsuariosCriptografados(seguidores);
+	public ResponseEntity<CryptoRequestForm> buscarSeguidoresDoUsuario(@PathVariable String username, Integer pagina, Integer quantidade) {
+		Page<UsuarioDto> pessoasQueSeguemOUsuario = this.seguidoresService.buscarSeguidoresDoUsuario(username, pagina, quantidade);
+		CryptoRequestForm informacoesSeguidoresCriptografada = this.userService.pegarInformacoesDosUsuariosCriptografados(pessoasQueSeguemOUsuario);
 		return ResponseEntity.ok(informacoesSeguidoresCriptografada);
 	}
 	

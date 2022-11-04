@@ -67,8 +67,8 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/regex/{username}")
-	public ResponseEntity<CryptoRequestForm> buscarUsuariosPeloUsernameComRegex(@PathVariable String username) {
-		List<UsuarioDto> usuarios = this.userService.buscarUsuariosPeloUsernameComRegex(username);
+	public ResponseEntity<CryptoRequestForm> buscarUsuariosPeloUsernameComRegex(@PathVariable String username, Integer quantidade) {
+		List<UsuarioDto> usuarios = this.userService.buscarUsuariosPeloUsernameComRegex(username, quantidade);
 		CryptoRequestForm usuariosCriptografados = this.userService.pegarInformacoesDosUsuariosCriptografados(usuarios);
 		return ResponseEntity.ok(usuariosCriptografados);
 	}

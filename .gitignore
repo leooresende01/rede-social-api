@@ -48,3 +48,4 @@ baeldung.jks
 baeldung.p12
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
+src/main/resources/application.properties

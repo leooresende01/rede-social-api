@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import tk.leooresende.redesocial.infra.advice.exception.UsuarioJaExisteException;
 import tk.leooresende.redesocial.infra.dto.v1.CryptoRequestForm;
+import tk.leooresende.redesocial.infra.dto.v1.PaginacaoUsuarioDto;
 import tk.leooresende.redesocial.infra.dto.v1.UsuarioAtualizadoForm;
 import tk.leooresende.redesocial.infra.dto.v1.UsuarioDto;
 import tk.leooresende.redesocial.infra.dto.v1.UsuarioForm;
@@ -84,7 +87,13 @@ public class UsuarioService {
 		List<Usuario> usuarios = this.userRepo.findAllByUsernameWhitRegex(username);
 		return UsuarioUtil.pegarUsuariosComoDtoEEmbaralharLista(usuarios);
 	}
-
+	
+	public List<UsuarioDto> buscarUsuariosPeloUsernameComRegex(String username, Integer quantidade) {
+		PageRequest pageRequest = PageRequest.of(0, quantidade);
+		Page<Usuario> usuarios = this.userRepo.findAllByUsernameWhitRegex(username, pageRequest);
+		return UsuarioUtil.pegarUsuariosComoDtoEEmbaralharLista(usuarios.getContent());
+	}
+	
 	public byte[] buscarImagemDoUsuario(String username) throws IOException {
 		Usuario usuario = this.buscarUsuarioNoDBPeloUsername(username);
 		byte[] imagemDoPerfilEmBytes = usuario.getImagemDoPerfil();
@@ -99,6 +108,12 @@ public class UsuarioService {
 	
 	public CryptoRequestForm pegarInformacoesDosUsuariosCriptografados(List<UsuarioDto> usuarios) {
 		String usuariosCriptografados = UsuarioUtil.criptografarInformacoesDosUsuarios(usuarios);
+		return new CryptoRequestForm(usuariosCriptografados);
+	}
+	
+	public CryptoRequestForm pegarInformacoesDosUsuariosCriptografados(Page<UsuarioDto> paginacaoUsuarios) {
+		PaginacaoUsuarioDto paginacaoUsuarioDto = new PaginacaoUsuarioDto(paginacaoUsuarios.getContent(), paginacaoUsuarios.isLast());
+		String usuariosCriptografados = UsuarioUtil.criptografarInformacoesDosUsuarios(paginacaoUsuarioDto);
 		return new CryptoRequestForm(usuariosCriptografados);
 	}
 

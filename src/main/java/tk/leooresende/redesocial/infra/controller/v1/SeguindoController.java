@@ -1,8 +1,7 @@
 package tk.leooresende.redesocial.infra.controller.v1;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tk.leooresende.redesocial.infra.dto.v1.CryptoRequestForm;
-import tk.leooresende.redesocial.infra.dto.v1.PublicacaoDto;
+import tk.leooresende.redesocial.infra.dto.v1.PaginacaoPublicacaoDto;
 import tk.leooresende.redesocial.infra.dto.v1.UsuarioDto;
-import tk.leooresende.redesocial.infra.service.v1.PublicacaoService;
 import tk.leooresende.redesocial.infra.service.v1.SeguindoService;
 import tk.leooresende.redesocial.infra.service.v1.UsuarioService;
 
@@ -29,13 +27,10 @@ public class SeguindoController {
 	@Autowired
 	private UsuarioService userService;
 	
-	@Autowired
-	private PublicacaoService publicacoesService;
-	
 	@GetMapping
-	public ResponseEntity<CryptoRequestForm> buscarPessoasSeguindo(@PathVariable String username) {
-		List<UsuarioDto> seguindo = this.seguindoService.buscarUsuariosSeguindoNoDB(username);
-		CryptoRequestForm informacoesDosSeguindosCriptografadas = this.userService.pegarInformacoesDosUsuariosCriptografados(seguindo);
+	public ResponseEntity<CryptoRequestForm> buscarPessoasQueOUsuarioEstaSeguindo(@PathVariable String username, Integer pagina, Integer quantidade) {
+		Page<UsuarioDto> pessoasQueOUsuarioSegue = this.seguindoService.buscarUsuariosSeguindoNoDB(username, pagina, quantidade);
+		CryptoRequestForm informacoesDosSeguindosCriptografadas = this.userService.pegarInformacoesDosUsuariosCriptografados(pessoasQueOUsuarioSegue);
 		return ResponseEntity.ok(informacoesDosSeguindosCriptografadas);
 	}
 
@@ -63,9 +58,9 @@ public class SeguindoController {
 	}
 	
 	@GetMapping("/publicacoes")
-	public ResponseEntity<CryptoRequestForm> buscarPublicacoesDasPessoasQueOUsuarioSegue(@PathVariable String username) {
-		List<PublicacaoDto> publicacoes = this.seguindoService.buscarPublicacoesDasPessoasQueOUsuarioSegue(username);
-		CryptoRequestForm informacoesDasPublicacoesCriptografadas = this.publicacoesService.criptografarInformacoesDasPublicacoes(publicacoes);
+	public ResponseEntity<CryptoRequestForm> buscarPublicacoesDasPessoasQueOUsuarioSegueTeste(@PathVariable String username, Integer pagina, Integer quantidadeDePublicacoes) {
+		PaginacaoPublicacaoDto publicacoesPaginadas = this.seguindoService.buscarPublicacoesDasPessoasQueOUsuarioSegue(username, pagina, quantidadeDePublicacoes);
+		CryptoRequestForm informacoesDasPublicacoesCriptografadas = publicacoesPaginadas.pegarPublicacoesComInformacoesCriptografadas();
 		return ResponseEntity.ok(informacoesDasPublicacoesCriptografadas);
 	}
 }
