@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +35,8 @@ public class UsuarioController {
 	private final String PATH_API = "/api/v1/usuarios";
 
 	@GetMapping
-	public ResponseEntity<CryptoRequestForm> buscarUsuarios() {
-		List<UsuarioDto> usuarios = this.userService.buscarUsuarioNoDB();
+	public ResponseEntity<CryptoRequestForm> buscarUsuarios(Integer pagina, Integer quantidade) {
+		Page<UsuarioDto> usuarios = this.userService.buscarUsuarioNoDB(pagina, quantidade);
 		CryptoRequestForm usuariosCriptografados = this.userService.pegarInformacoesDosUsuariosCriptografados(usuarios);
 		return ResponseEntity.ok(usuariosCriptografados);
 	}

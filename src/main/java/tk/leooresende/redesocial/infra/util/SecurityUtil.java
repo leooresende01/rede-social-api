@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.DigestException;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.security.Security;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.stream.Collectors;
@@ -28,7 +29,11 @@ import tk.leooresende.redesocial.infra.dto.v1.CryptoRequestForm;
 public class SecurityUtil {
 	private static final String SECRET_KEY_OUT = "KXI4RpZ7";
 	private static final String SECRET_KEY_IN = "sfOxW4F";
-
+	
+	static {
+		Security.addProvider(new BouncyCastleProvider());
+	}
+	
 	public static String descriptografarAESComAKey(String payload) {
 		try {
 			byte[] cipherData = Base64.getDecoder().decode(payload);

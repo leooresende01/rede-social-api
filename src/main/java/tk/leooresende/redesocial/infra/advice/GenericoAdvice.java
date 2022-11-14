@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import tk.leooresende.redesocial.infra.advice.exception.GenericaException;
 import tk.leooresende.redesocial.infra.advice.exception.UsuarioNaoExisteException;
-import tk.leooresende.redesocial.infra.dto.v1.MensagemDto;
+import tk.leooresende.redesocial.infra.dto.v1.MensagemDeErroDto;
 
 @RestControllerAdvice
 public class GenericoAdvice {
@@ -21,18 +21,18 @@ public class GenericoAdvice {
 	}
 
 	@ExceptionHandler({ GenericaException.class })
-	public ResponseEntity<MensagemDto> tratarDataIntegrityViolationException(GenericaException ex) {
-		return ResponseEntity.status(ex.getStatusHTTP()).body(new MensagemDto(ex.getMessage()));
+	public ResponseEntity<MensagemDeErroDto> tratarDataIntegrityViolationException(GenericaException ex) {
+		return ResponseEntity.status(ex.getStatusHTTP()).body(new MensagemDeErroDto(ex.getMessage()));
 	} 
 
 	@ExceptionHandler({ BadCredentialsException.class })
-	public ResponseEntity<MensagemDto> tratarDataIntegrityViolationException(Exception ex) {
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MensagemDto(UsuarioNaoExisteException.MENSAGEM));
+	public ResponseEntity<MensagemDeErroDto> tratarDataIntegrityViolationException(Exception ex) {
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MensagemDeErroDto(UsuarioNaoExisteException.MENSAGEM));
 	}
 	
 	@ExceptionHandler({HttpMessageNotReadableException.class})
-	public ResponseEntity<MensagemDto> tratarHttpMessageNotReadableException(Exception ex) {
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MensagemDto("Os dados são invalidos ou não foram enviados"));
+	public ResponseEntity<MensagemDeErroDto> tratarHttpMessageNotReadableException(Exception ex) {
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MensagemDeErroDto("Os dados são invalidos ou não foram enviados"));
 	}
 	
 }

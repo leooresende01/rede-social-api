@@ -79,7 +79,6 @@ public class UsuarioUtil {
 	public static String criptografarInformacoesDosUsuarios(PaginacaoUsuarioDto usuarioAtualizado) {
 		Gson gson = new Gson();
 		String usuariosDtoPaginadosEmJson = gson.toJson(usuarioAtualizado);
-		System.out.println(usuariosDtoPaginadosEmJson);
 		return SecurityUtil.criptografar(usuariosDtoPaginadosEmJson);
 	}
 	

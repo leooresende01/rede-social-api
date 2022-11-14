@@ -32,7 +32,13 @@ public class UsuarioService {
 		List<Usuario> usuarios = this.userRepo.findAll();
 		return UsuarioDto.mapearUsuariosParaDTO(usuarios);
 	}
-
+	
+	public Page<UsuarioDto> buscarUsuarioNoDB(Integer pagina, Integer quantidade) {
+		PageRequest paginacaoConfig = PageRequest.of(pagina, quantidade);
+		Page<Usuario> usuarios = this.userRepo.findAll(paginacaoConfig);
+		return usuarios.map(UsuarioDto::new);
+	}
+	
 	public UsuarioDto validarERegistrarUsuario(UsuarioForm userForm) throws IOException {
 		UsuarioUtil.validarInformacoesDoUsuario(userForm);
 		this.verificaSeOUsernameJaEstaSendoUsado(userForm.getUsername());
