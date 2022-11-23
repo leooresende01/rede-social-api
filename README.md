@@ -18,9 +18,9 @@
 | Curtir/Descurtir    |   ✔️    | Curtir e descurtir publicações |
 | Comentar/Remover comentários  |   ✔️    | Comentar em publicações e remover comentários  |
 | Editar conta  |  ✔️   |  Editar informações da conta  |
+| Mensagens  |   ✔️    |  Trocar mensagens com outros usuários  |
 | Deletar conta  |   ❌    |  Deletar conta criada  |
 | Responder comentarios  |   ❌    |  Responder comentarios de outros usuários  |
-| Mensagens  |   ❌    |  Trocar mensagens com outros usuários  |
 ---
 ## Tecnologias Usadas:
 - [Java](https://docs.oracle.com/en/java/)
@@ -31,6 +31,7 @@
   
 ---
 ## Extras:
-- [Aplicação front-end (Produção)](https://rede-social.leooresende.tk/)
 - [Aplicação front-end (Source)](https://github.com/leooresende01/rede-social-frontend)
+- [Aplicação Completa em produção](https://rede-social.leooresende.tk/)
+- [Aplicação WebSocket (Source)](https://github.com/leooresende01/rede-social-frontend)
 
