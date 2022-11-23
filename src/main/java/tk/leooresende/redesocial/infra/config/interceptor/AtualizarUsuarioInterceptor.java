@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import tk.leooresende.redesocial.infra.dto.v1.UsuarioAtualizadoForm;
-import tk.leooresende.redesocial.infra.util.SecurityUtil;
+import tk.leooresende.redesocial.infra.util.CryptoUtil;
 
 @SuppressWarnings("deprecation")
 public class AtualizarUsuarioInterceptor extends HandlerInterceptorAdapter{
@@ -25,9 +25,9 @@ public class AtualizarUsuarioInterceptor extends HandlerInterceptorAdapter{
 	}
 
 	private UsuarioAtualizadoForm pegarRequisicaoComoUsuarioAtualizadoForm(HttpServletRequest request) {
-		String username = SecurityUtil.pegarParametroDescriptografado("username", request);
-		String nomeCompleto = SecurityUtil.pegarParametroDescriptografado("nomeCompleto", request);
-		MultipartFile imagem = SecurityUtil.pegarImagemDaRequisicao(request);
+		String username = CryptoUtil.pegarParametroDescriptografado("username", request);
+		String nomeCompleto = CryptoUtil.pegarParametroDescriptografado("nomeCompleto", request);
+		MultipartFile imagem = CryptoUtil.pegarImagemDaRequisicao(request);
 		return new UsuarioAtualizadoForm(username, nomeCompleto, imagem);
 	}
 }

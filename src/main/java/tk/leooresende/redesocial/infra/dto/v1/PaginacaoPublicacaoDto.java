@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
-import tk.leooresende.redesocial.infra.util.SecurityUtil;
+import tk.leooresende.redesocial.infra.util.CryptoUtil;
 import tk.leooresende.redesocial.model.Publicacao;
 
 public class PaginacaoPublicacaoDto {
@@ -34,7 +34,7 @@ public class PaginacaoPublicacaoDto {
 
 	public CryptoRequestForm pegarPublicacoesComInformacoesCriptografadas() {
 		Gson gson = new Gson();
-		String publicaoesPaginadas = SecurityUtil.criptografar(gson.toJson(this));
+		String publicaoesPaginadas = CryptoUtil.criptografar(gson.toJson(this));
 		return new CryptoRequestForm(publicaoesPaginadas);
 	}
 

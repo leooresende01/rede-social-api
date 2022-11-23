@@ -8,7 +8,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.google.gson.Gson;
 
 import tk.leooresende.redesocial.infra.dto.v1.LoginForm;
-import tk.leooresende.redesocial.infra.util.SecurityUtil;
+import tk.leooresende.redesocial.infra.util.CryptoUtil;
 
 @SuppressWarnings("deprecation")
 public class LoginInterceptor extends HandlerInterceptorAdapter {
@@ -16,7 +16,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		String corpoDescriptografadoEmJSON = SecurityUtil.pegarEDescriptografarRequisicao(request);
+		String corpoDescriptografadoEmJSON = CryptoUtil.pegarEDescriptografarRequisicao(request);
 		Gson gson = new Gson();
 		LoginForm loginForm = gson.fromJson(corpoDescriptografadoEmJSON, LoginForm.class);
 		request.setAttribute("loginForm", loginForm);

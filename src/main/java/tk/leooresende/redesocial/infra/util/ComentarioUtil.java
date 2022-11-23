@@ -11,13 +11,13 @@ public class ComentarioUtil {
 	public static String aplicarCriptografiaNoComentario(ComentarioDto comentario) {
 		Gson gson = new Gson();
 		String comentarioDtoJson = gson.toJson(comentario);
-		return SecurityUtil.criptografar(comentarioDtoJson);
+		return CryptoUtil.criptografar(comentarioDtoJson);
 	}
 
 	public static String aplicarCriptografiaNosComentarios(List<ComentarioDto> comentarios) {
 		Gson gson = new Gson();
 		String comentarioDtoJson = gson.toJson(comentarios);
-		return SecurityUtil.criptografar(comentarioDtoJson);
+		return CryptoUtil.criptografar(comentarioDtoJson);
 	}
 
 }

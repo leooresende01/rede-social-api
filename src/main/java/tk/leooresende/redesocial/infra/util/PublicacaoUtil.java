@@ -86,13 +86,13 @@ public class PublicacaoUtil {
 	public static String aplicarCriptografia(PublicacaoDto comentario) {
 		Gson gson = new Gson();
 		String comentarioDtoJson = gson.toJson(comentario);
-		return SecurityUtil.criptografar(comentarioDtoJson);
+		return CryptoUtil.criptografar(comentarioDtoJson);
 	}
 
 	public static String aplicarCriptografia(List<PublicacaoDto> comentarios) {
 		Gson gson = new Gson();
 		String comentarioDtoJson = gson.toJson(comentarios);
-		return SecurityUtil.criptografar(comentarioDtoJson);
+		return CryptoUtil.criptografar(comentarioDtoJson);
 	}
 
 	public static List<PublicacaoDto> pegarPublicacoesOrdenadasPorMaisRecentesEmDto(List<Publicacao> publicacoes) {

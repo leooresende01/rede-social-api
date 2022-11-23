@@ -73,19 +73,19 @@ public class UsuarioUtil {
 	public static String criptografarInformacoesDoUsuario(UsuarioDto usuarioAtualizado) {
 		Gson gson = new Gson();
 		String usuarioDtoJson = gson.toJson(usuarioAtualizado);
-		return SecurityUtil.criptografar(usuarioDtoJson);
+		return CryptoUtil.criptografar(usuarioDtoJson);
 	}
 	
 	public static String criptografarInformacoesDosUsuarios(PaginacaoUsuarioDto usuarioAtualizado) {
 		Gson gson = new Gson();
 		String usuariosDtoPaginadosEmJson = gson.toJson(usuarioAtualizado);
-		return SecurityUtil.criptografar(usuariosDtoPaginadosEmJson);
+		return CryptoUtil.criptografar(usuariosDtoPaginadosEmJson);
 	}
 	
 	public static String criptografarInformacoesDosUsuarios(List<UsuarioDto> usuarioAtualizado) {
 		Gson gson = new Gson();
 		String usuariosDtoJson = gson.toJson(usuarioAtualizado);
-		return SecurityUtil.criptografar(usuariosDtoJson);
+		return CryptoUtil.criptografar(usuariosDtoJson);
 	}
 
 	public static List<UsuarioDto> pegarUsuariosComoDtoEEmbaralharLista(List<Usuario> usuarios) {

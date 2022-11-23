@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import tk.leooresende.redesocial.infra.dto.v1.UsuarioForm;
-import tk.leooresende.redesocial.infra.util.SecurityUtil;
+import tk.leooresende.redesocial.infra.util.CryptoUtil;
 
 @SuppressWarnings("deprecation")
 public class RegistrarUsuarioInterceptor extends HandlerInterceptorAdapter {
@@ -28,10 +28,10 @@ public class RegistrarUsuarioInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	private UsuarioForm pegarCorpoDaRequisicaoComoUsuarioForm(HttpServletRequest request) throws IOException, ServletException {
-		String username = SecurityUtil.pegarParametroDescriptografado("username", request);
-		String nomeCompleto = SecurityUtil.pegarParametroDescriptografado("nomeCompleto", request);
-		String password = SecurityUtil.pegarParametroDescriptografado("password", request);
-		MultipartFile imagem = SecurityUtil.pegarImagemDaRequisicao(request);
+		String username = CryptoUtil.pegarParametroDescriptografado("username", request);
+		String nomeCompleto = CryptoUtil.pegarParametroDescriptografado("nomeCompleto", request);
+		String password = CryptoUtil.pegarParametroDescriptografado("password", request);
+		MultipartFile imagem = CryptoUtil.pegarImagemDaRequisicao(request);
 		return new UsuarioForm(username, password, nomeCompleto, imagem);
 	}
 }

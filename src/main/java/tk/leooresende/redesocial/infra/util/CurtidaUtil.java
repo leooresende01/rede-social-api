@@ -46,13 +46,13 @@ public class CurtidaUtil {
 	public static String aplicarCriptografia(CurtidaDto curtidas) {
 		Gson gson = new Gson();
 		String comentarioDtoJson = gson.toJson(curtidas);
-		return SecurityUtil.criptografar(comentarioDtoJson);
+		return CryptoUtil.criptografar(comentarioDtoJson);
 	}
 	
 	public static String aplicarCriptografia(List<CurtidaDto> curtidas) {
 		Gson gson = new Gson();
 		String comentarioDtoJson = gson.toJson(curtidas);
-		return SecurityUtil.criptografar(comentarioDtoJson);
+		return CryptoUtil.criptografar(comentarioDtoJson);
 	}
 
 }

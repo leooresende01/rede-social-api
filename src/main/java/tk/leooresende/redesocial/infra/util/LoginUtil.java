@@ -9,7 +9,7 @@ public class LoginUtil {
 	public static String criptografarLoginDto(LoginDto loginDto) {
 		Gson gson = new Gson();
 		String loginFormJson = gson.toJson(loginDto, LoginDto.class);
-		return SecurityUtil.criptografar(loginFormJson);
+		return CryptoUtil.criptografar(loginFormJson);
 	}
 
 }
