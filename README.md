@@ -32,6 +32,5 @@
 ---
 ## Extras:
 - [Aplicação front-end (Source)](https://github.com/leooresende01/rede-social-frontend)
-- [Aplicação Completa em produção](https://rede-social.leooresende.tk/)
 - [Aplicação WebSocket (Source)](https://github.com/leooresende01/rede-social-frontend)
 
